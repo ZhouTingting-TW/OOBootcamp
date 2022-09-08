@@ -67,10 +67,10 @@ public class GraduateParkingBoyTest
         {
             _graduateParkingBoy.Park(new Vehicle(car));
         }
-        
+
         Assert.Throws<AllParkingPlotsAreFullException>(() => _graduateParkingBoy.Park(new Vehicle("v5")));
     }
-    
+
     [Test]
     public void should_retrieve_a_car_successfully_given_car_is_existed_in_parkingLots()
     {
@@ -80,9 +80,22 @@ public class GraduateParkingBoyTest
         {
             _graduateParkingBoy.Park(new Vehicle(car));
         }
-        
-        Assert.Throws<AllParkingPlotsAreFullException>(() => _graduateParkingBoy.Park(new Vehicle("v5")));
+        _graduateParkingBoy.RetrieveCars(new Vehicle("v1"));
+
+        Assert.Null(_graduateParkingBoy.GetCurrentParkingLotName("v1"));
     }
-    
-    
+
+    [Test]
+    public void should_fail_to_retrieve_a_car_given_car_is_not_found_in_parkingLots()
+    {
+        var vehicle = new Vehicle("v5");
+        var cars = new List<string> { "v1", "v2", "v3", "v4" };
+
+        foreach (var car in cars)
+        {
+            _graduateParkingBoy.Park(new Vehicle(car));
+        }
+
+        Assert.Throws<VehicleNotFoundException>(() => _graduateParkingBoy.RetrieveCars(vehicle));
+    }
 }

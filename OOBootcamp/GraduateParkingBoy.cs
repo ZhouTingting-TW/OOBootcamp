@@ -46,13 +46,13 @@ public class GraduateParkingBoy
         return null;
     }
 
-    public bool RetrieveCars(string LicensePlate)
+    public void RetrieveCars(Vehicle vehicle)
     {
-        var vehicle = new Vehicle(LicensePlate);
-        if (_parkingInfo.TryGetValue(vehicle, out var parkingLot))
+        if (_parkingInfo.TryGetValue(vehicle, out var parkingLotToBeReleased))
         {
-            parkingLot.RetrieveVehicle(vehicle);
+            parkingLotToBeReleased.RetrieveVehicle(vehicle);
             _parkingInfo.TryRemove(vehicle, out var parkingLot2);
+            return;
         }
         throw new VehicleNotFoundException(vehicle);
         

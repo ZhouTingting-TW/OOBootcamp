@@ -4,13 +4,13 @@ namespace OOBootcamp;
 
 public class ParkingLot
 {
-    public string Name { get; }
+    public string? Name { get; }
     public double HourlyRate { get; }
     public int AvailableCount => MaxCapacity - _parkedVehicles.Count;
     public int MaxCapacity { get; }
     private readonly ConcurrentDictionary<Vehicle, DateTime> _parkedVehicles;
 
-    public ParkingLot(int maxCapacity, double hourlyRate, string name)
+    public ParkingLot(int maxCapacity, double hourlyRate, string? name)
     {
         MaxCapacity = maxCapacity;
         Name = name;
